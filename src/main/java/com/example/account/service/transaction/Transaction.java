@@ -12,7 +12,10 @@ public class Transaction {
 
     public Transaction() {
     }
-    public Transaction(String number, String credit, double v) {
+    public Transaction(String transactionId, String description, double amount) {
+        this.transactionId = transactionId;
+        this.description = description;
+        this.amount = amount;
     }
 
     public String getTransactionId() {

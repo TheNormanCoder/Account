@@ -3,6 +3,7 @@ package com.example.account.integration;
 import com.example.account.service.payment.request.*;
 import com.example.account.service.payment.response.MoneyTransfer;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,10 @@ class ConcretePaymentServiceIntegrationTest {
         headers.set("X-Time-Zone", "Europe/Rome");
         baseUrl = "https://sandbox.platfr.io";
         accountId = "14537780";
-        paymentUrl = "/api/gbs/banking/v4.0/accounts/{accountId}/balance";
+        paymentUrl = "/api/gbs/banking/v4.0/accounts/{accountId}/payments/money-transfers";
     }
     @Test
+    @Disabled("Questo test è ancora in fase di sviluppo")
     void testExecutePayment() {
         String url = baseUrl + paymentUrl;
         url = url.replace("{accountId}", accountId);
@@ -67,30 +69,30 @@ class ConcretePaymentServiceIntegrationTest {
         //payment.setFeeType("SHA");
         //payment.setFeeAccountId("45685475");
         Creditor creditor = new Creditor();
-        creditor.setName("Alberto Finzi");
+        creditor.setName("Norman William Billanova");
         Account account = new Account();
-        account.setAccountCode("IT60X0542811101000000123456");
+        account.setAccountCode("IT18C0347501605CC0010685824");
         //account.setBicCode("SELBIT2BXXX");
         creditor.setAccount(account);
-        Address address = new Address();
+        //Address address = new Address();
         //address.setAddress(null);
         //address.setCity(null);
         //address.setCountryCode(null);
-        creditor.setAddress(address);
+        //creditor.setAddress(address);
         payment.setCreditor(creditor);
-        TaxRelief taxRelief = new TaxRelief();
+        //TaxRelief taxRelief = new TaxRelief();
         //taxRelief.setTaxReliefId("L449");
-        taxRelief.setCondoUpgrade(false);
-        taxRelief.setCreditorFiscalCode("FNZLRT80A01F839Z");
-        taxRelief.setBeneficiaryType("NATURAL_PERSON");
-        NaturalPersonBeneficiary naturalPersonBeneficiary = new NaturalPersonBeneficiary();
-        naturalPersonBeneficiary.setFiscalCode1("FNZLRT80A01F839Z");
-        taxRelief.setNaturalPersonBeneficiary(naturalPersonBeneficiary);
-        LegalPersonBeneficiary legalPersonBeneficiary = new LegalPersonBeneficiary();
+        //taxRelief.setCondoUpgrade(false);
+        //taxRelief.setCreditorFiscalCode("FNZLRT80A01F839Z");
+        //taxRelief.setBeneficiaryType("NATURAL_PERSON");
+        //NaturalPersonBeneficiary naturalPersonBeneficiary = new NaturalPersonBeneficiary();
+        //naturalPersonBeneficiary.setFiscalCode1("FNZLRT80A01F839Z");
+        //taxRelief.setNaturalPersonBeneficiary(naturalPersonBeneficiary);
+        //LegalPersonBeneficiary legalPersonBeneficiary = new LegalPersonBeneficiary();
         //legalPersonBeneficiary.setFiscalCode(null);
         //legalPersonBeneficiary.setLegalRepresentativeFiscalCode(null);
-        taxRelief.setLegalPersonBeneficiary(legalPersonBeneficiary);
-        payment.setTaxRelief(taxRelief);
+        //taxRelief.setLegalPersonBeneficiary(legalPersonBeneficiary);
+        //payment.setTaxRelief(taxRelief);
         return payment;
     }
 
