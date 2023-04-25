@@ -1,7 +1,12 @@
 /.idea
-/.mvm
+/.mvn
 *.iml
 */target/
+/target/
 *.class
 *.log
 *.cmd
+*.jar
+*.jar.original
+HELP.md
+mvnw
