@@ -1,14 +1,11 @@
 package com.example.account.service.transaction;
 
 import com.example.account.service.GenericAccountService;
-import com.example.account.service.payment.response.MoneyTransfer;
+import com.example.account.service.transaction.response.TransactionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -41,10 +38,17 @@ public class ConcreteTransactionService extends GenericAccountService implements
             }
         }catch (Exception e){
             logger.error(entity.toString());
-            logger.error(response.toString());
-            return ResponseEntity.status(response.getStatusCode())
-                    .headers(headers)
-                    .body(new TransactionResponse());
+            if (response != null) {
+                logger.error(response.toString());
+                return ResponseEntity.status(response.getStatusCode())
+                        .headers(headers)
+                        .body(new TransactionResponse());
+            } else {
+                logger.error("Response is null");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .headers(headers)
+                        .body(new TransactionResponse());
+            }
         }
 
     }

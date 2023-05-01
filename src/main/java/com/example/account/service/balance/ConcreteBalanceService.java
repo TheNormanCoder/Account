@@ -1,7 +1,7 @@
 package com.example.account.service.balance;
 
 import com.example.account.service.GenericAccountService;
-import com.example.account.service.payment.response.MoneyTransfer;
+import com.example.account.service.balance.response.BalanceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

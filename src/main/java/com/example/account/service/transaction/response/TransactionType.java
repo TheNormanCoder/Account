@@ -1,4 +1,4 @@
-package com.example.account.service.transaction;
+package com.example.account.service.transaction.response;
 
 public class TransactionType {
     private String enumeration;
