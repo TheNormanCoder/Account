@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import com.example.account.service.balance.BalanceService;
 import com.example.account.service.balance.ConcreteBalanceService;
-import com.example.account.service.balance.BalanceResponse;
+import com.example.account.service.balance.response.BalanceResponse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,9 +17,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
+
 @SpringBootTest
+@ActiveProfiles("test")
 public class ConcreteBalanceServiceTest {
 
     private BalanceService balanceService;
@@ -52,19 +56,18 @@ public class ConcreteBalanceServiceTest {
     @Test
     public void testGetBalance() {
         String url = baseUrl + serviceUrl;
-        url = url.replace("{accountId}",accountId);
+        url = url.replace("{accountId}", accountId);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Auth-Schema", authSchema);
-        headers.set("Api-Key",apiKey);
+        headers.set("Api-Key", apiKey);
         HttpEntity<String> entity = new HttpEntity<>(headers);
         BalanceResponse balanceResponse = new BalanceResponse();
-        balanceResponse.setBalance(100.0);
+        balanceResponse.setBalance(new BigDecimal("100.0"));
         ResponseEntity<BalanceResponse> responseEntity = ResponseEntity.ok(balanceResponse);
         when(restTemplate.exchange(url, HttpMethod.GET, entity, BalanceResponse.class)).thenReturn(responseEntity);
 
-
         ResponseEntity<BalanceResponse> balance = balanceService.getBalance(accountId);
-        assertEquals(100.0, balance.getBody().getBalance(), 0.001);
+        assertEquals(new BigDecimal("100.0"), balance.getBody().getBalance());
     }
 
 }

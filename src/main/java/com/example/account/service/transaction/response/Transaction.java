@@ -1,4 +1,7 @@
-package com.example.account.service.transaction;
+package com.example.account.service.transaction.response;
+
+import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Transaction {
     private String transactionId;
@@ -6,13 +9,13 @@ public class Transaction {
     private String accountingDate;
     private String valueDate;
     private TransactionType type;
-    private double amount;
+    private BigDecimal amount;
     private String currency;
     private String description;
 
     public Transaction() {
     }
-    public Transaction(String transactionId, String description, double amount) {
+    public Transaction(String transactionId, String description, BigDecimal amount) {
         this.transactionId = transactionId;
         this.description = description;
         this.amount = amount;
@@ -58,11 +61,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -81,4 +84,24 @@ public class Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Transaction that = (Transaction) o;
+        return Objects.equals(transactionId, that.transactionId) &&
+                Objects.equals(operationId, that.operationId) &&
+                Objects.equals(accountingDate, that.accountingDate) &&
+                Objects.equals(valueDate, that.valueDate) &&
+                Objects.equals(type, that.type) &&
+                (amount == null ? that.amount == null : amount.compareTo(that.amount) == 0) &&
+                Objects.equals(currency, that.currency) &&
+                Objects.equals(description, that.description);
+    }
+
 }

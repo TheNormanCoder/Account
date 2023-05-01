@@ -1,15 +1,14 @@
-package com.example.account.service.balance;
+package com.example.account.service.balance.response;
+
+import java.math.BigDecimal;
 
 public class BalanceResponse {
     private String date;
-    private double balance;
-    private double availableBalance;
+    private BigDecimal balance;
+    private BigDecimal availableBalance;
     private String currency;
 
     public BalanceResponse() {
-    }
-
-    public BalanceResponse(double v) {
     }
 
 
@@ -21,19 +20,19 @@ public class BalanceResponse {
         this.date = date;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
-    public double getAvailableBalance() {
+    public BigDecimal getAvailableBalance() {
         return availableBalance;
     }
 
-    public void setAvailableBalance(double availableBalance) {
+    public void setAvailableBalance(BigDecimal availableBalance) {
         this.availableBalance = availableBalance;
     }
 

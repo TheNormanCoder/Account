@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
@@ -19,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
+@Disabled
 class ConcretePaymentServiceIntegrationTest {
 
-    @LocalServerPort
-    private int port;
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -46,7 +47,6 @@ class ConcretePaymentServiceIntegrationTest {
         paymentUrl = "/api/gbs/banking/v4.0/accounts/{accountId}/payments/money-transfers";
     }
     @Test
-    @Disabled("Questo test è ancora in fase di sviluppo")
     void testExecutePayment() {
         String url = baseUrl + paymentUrl;
         url = url.replace("{accountId}", accountId);

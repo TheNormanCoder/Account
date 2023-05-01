@@ -1,11 +1,11 @@
 package com.example.account;
 
-import com.example.account.service.balance.BalanceResponse;
+import com.example.account.service.balance.response.BalanceResponse;
 import com.example.account.service.balance.BalanceService;
 import com.example.account.service.payment.PaymentService;
 import com.example.account.service.payment.request.Payment;
 import com.example.account.service.payment.response.MoneyTransfer;
-import com.example.account.service.transaction.TransactionResponse;
+import com.example.account.service.transaction.response.TransactionResponse;
 import com.example.account.service.transaction.TransactionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
