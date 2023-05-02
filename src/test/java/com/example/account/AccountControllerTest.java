@@ -1,5 +1,6 @@
 package com.example.account;
 
+import com.example.account.AccountController;
 import com.example.account.service.balance.response.BalanceResponse;
 import com.example.account.service.payment.request.Payment;
 import com.example.account.service.payment.response.MoneyTransfer;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -41,15 +43,11 @@ public class AccountControllerTest {
         balanceResponse.setCurrency("EUR");
 
         moneyTransfer = new MoneyTransfer();
-        moneyTransfer.setSender("12345678");
-        moneyTransfer.setRecipient("23456789");
-        moneyTransfer.setAmount(new BigDecimal(100));
-        moneyTransfer.setCurrency("EUR");
+        moneyTransfer.setMoneyTransferId("1");
+        moneyTransfer.setStatus("COMPLETED");
+        moneyTransfer.setDirection("OUTGOING");
 
         transactionResponse = new TransactionResponse();
-        transactionResponse.setAccountId("12345678");
-        transactionResponse.setFromAccountingDate("2023-04-01");
-        transactionResponse.setToAccountingDate("2023-04-30");
     }
 
     @Test
@@ -62,11 +60,15 @@ public class AccountControllerTest {
     @Test
     public void moneyTransferTest() throws Exception {
         Payment payment = new Payment();
-        payment.setRecipient("23456789");
+        payment.setDescription("Test payment");
         payment.setAmount(new BigDecimal(100));
+        payment.setCurrency("EUR");
 
         when(accountController.moneyTransfer("12345678", payment)).thenReturn(ResponseEntity.ok(moneyTransfer));
-        mockMvc.perform(post("/api/moneyTransfer/12345678"))
+        String paymentJson = "{\"description\":\"Test payment\",\"amount\":100,\"currency\":\"EUR\"}";
+        mockMvc.perform(post("/api/moneyTransfer/12345678")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(paymentJson))
                 .andExpect(status().isOk());
     }
 
