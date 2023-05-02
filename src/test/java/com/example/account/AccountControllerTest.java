@@ -50,7 +50,9 @@ public class AccountControllerTest {
     public void testGetBalance() throws Exception {
         // Arrange
         String accountId = "12345678";
-        BalanceResponse balanceResponse = new BalanceResponse(accountId, 500.0);
+        BalanceResponse balanceResponse = new BalanceResponse();
+        balanceResponse.setAccountId(accountId);
+        balanceResponse.setBalance(500.0);
         when(balanceService.getBalance(accountId)).thenReturn(ResponseEntity.ok(balanceResponse));
 
         // Act & Assert
@@ -63,8 +65,13 @@ public class AccountControllerTest {
     public void testMoneyTransfer() throws Exception {
         // Arrange
         String accountId = "12345678";
-        Payment payment = new Payment("87654321", 100.0);
-        MoneyTransfer moneyTransfer = new MoneyTransfer(accountId, "87654321", 100.0);
+        Payment payment = new Payment();
+        payment.setRecipient("87654321");
+        payment.setAmount(100.0);
+        MoneyTransfer moneyTransfer = new MoneyTransfer();
+        moneyTransfer.setSender(accountId);
+        moneyTransfer.setRecipient("87654321");
+        moneyTransfer.setAmount(100.0);
         when(paymentService.executePayment(accountId, payment)).thenReturn(ResponseEntity.ok(moneyTransfer));
 
         // Act & Assert
@@ -80,7 +87,10 @@ public class AccountControllerTest {
         String accountId = "12345678";
         String fromDate = LocalDate.now().minusDays(10).toString();
         String toDate = LocalDate.now().toString();
-        TransactionResponse transactionResponse = new TransactionResponse(accountId, fromDate, toDate);
+        TransactionResponse transactionResponse = new TransactionResponse();
+        transactionResponse.setAccountId(accountId);
+        transactionResponse.setFromAccountingDate(fromDate);
+        transactionResponse.setToAccountingDate(toDate);
         when(transactionService.getTransactions(accountId, fromDate, toDate)).thenReturn(ResponseEntity.ok(transactionResponse));
 
         // Act & Assert
