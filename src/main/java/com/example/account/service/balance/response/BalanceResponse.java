@@ -1,8 +1,13 @@
 package com.example.account.service.balance.response;
 
-import java.math.BigDecimal;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
+@Document(collection = "balanceResponses")
 public class BalanceResponse {
+    @Id
+    private String id;
     private String date;
     private BigDecimal balance;
     private BigDecimal availableBalance;
@@ -42,5 +47,13 @@ public class BalanceResponse {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
