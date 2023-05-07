@@ -1,9 +1,15 @@
 package com.example.account.service.transaction.response;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Document(collection = "Transaction")
 public class Transaction {
+    @Id
+    private String id;
     private String transactionId;
     private String operationId;
     private String accountingDate;
@@ -85,6 +91,14 @@ public class Transaction {
         this.description = description;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -94,7 +108,8 @@ public class Transaction {
             return false;
         }
         Transaction that = (Transaction) o;
-        return Objects.equals(transactionId, that.transactionId) &&
+        return Objects.equals(id, that.id) &&
+                Objects.equals(transactionId, that.transactionId) &&
                 Objects.equals(operationId, that.operationId) &&
                 Objects.equals(accountingDate, that.accountingDate) &&
                 Objects.equals(valueDate, that.valueDate) &&
