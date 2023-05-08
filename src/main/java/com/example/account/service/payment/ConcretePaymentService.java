@@ -1,10 +1,12 @@
 package com.example.account.service.payment;
 
 import com.example.account.service.GenericAccountService;
+import com.example.account.service.payment.repository.MoneyTransferRepository;
 import com.example.account.service.payment.request.*;
 import com.example.account.service.payment.response.MoneyTransfer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 public class ConcretePaymentService extends GenericAccountService implements PaymentService {
 
     private static final Logger logger = LoggerFactory.getLogger(ConcretePaymentService.class);
+    @Autowired
+    private MoneyTransferRepository moneyTransferRepository;
     public ConcretePaymentService(RestTemplate restTemplate,
                                   @Value("${baseUrl}") String baseUrl,
                                   @Value("${paymentUrl}") String serviceUrl,

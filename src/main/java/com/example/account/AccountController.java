@@ -24,15 +24,16 @@ import java.time.format.DateTimeParseException;
 @RequestMapping("/api")
 public class AccountController {
 
-    @Autowired
-    private BalanceService balanceService;
+    private final BalanceService balanceService;
+    private final TransactionService transactionService;
+    private final PaymentService paymentService;
 
     @Autowired
-    private TransactionService transactionService;
-
-    @Autowired
-    private PaymentService paymentService;
-
+    public AccountController(BalanceService balanceService, TransactionService transactionService, PaymentService paymentService) {
+        this.balanceService = balanceService;
+        this.transactionService = transactionService;
+        this.paymentService = paymentService;
+    }
     @Operation(summary = "Get balance", description = "Get the balance for a given account ID.")
     @GetMapping(value = "/balance/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponse(responseCode = "200", description = "Successful operation", content = {
