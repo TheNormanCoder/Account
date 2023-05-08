@@ -1,9 +1,11 @@
 package com.example.account.service.balance;
 
 import com.example.account.service.GenericAccountService;
+import com.example.account.service.balance.repository.BalanceResponseRepository;
 import com.example.account.service.balance.response.BalanceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +19,8 @@ import org.springframework.web.client.RestTemplate;
 public class ConcreteBalanceService extends GenericAccountService implements BalanceService {
 
     private static final Logger logger = LoggerFactory.getLogger(ConcreteBalanceService.class);
+    @Autowired
+    private BalanceResponseRepository balanceResponseRepository;
     public ConcreteBalanceService(RestTemplate restTemplate,
                                   @Value("${baseUrl}") String baseUrl,
                                   @Value("${balanceUrl}") String serviceUrl,
